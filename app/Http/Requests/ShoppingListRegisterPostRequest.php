@@ -20,7 +20,7 @@ class ShoppingListRegisterPostRequest extends FormRequest
      *
      * @return array
      */
-            'name' => ['required', 'max:128'],
+            'name' => ['required', 'max:255'],
      
         ];
     }
