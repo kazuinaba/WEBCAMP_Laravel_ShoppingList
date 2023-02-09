@@ -6,6 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShoppingListController;
 use App\Http\Controllers\CompletedShoppingListController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 // 管理画面
 Route::prefix('/admin')->group(function () {
     Route::get('', [AdminAuthController::class, 'index'])->name('admin.index');
+    Route::get('/login', [AdminAuthController::class, 'login'])->name('admin.login');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
     Route::middleware(['auth:admin'])->group(function () {
         Route::get('/top', [AdminHomeController::class, 'top'])->name('admin.top');
@@ -53,4 +58,3 @@ Route::prefix('/admin')->group(function () {
     });
     Route::get('/logout', [AdminAuthController::class, 'logout']);
 });
-
