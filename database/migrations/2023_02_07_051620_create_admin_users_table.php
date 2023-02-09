@@ -15,7 +15,13 @@ class CreateAdminUsersTable extends Migration
     {
         Schema::create('admin_users', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('login_id', 255)->unique();
+            $table->string('password', 255);
+            //$table->timestamps();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
+            //
+            $table->collation = 'utf8mb4_bin';
         });
     }
 

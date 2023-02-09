@@ -30,7 +30,7 @@
                 @csrf
                 「買うもの」名:<input name="name" value="{{ old('name') }}"><br>
 
-                <button>タスクを登録する</button>
+                <button>「買うもの」を登録する</button>
             </form>
 
         <h1>「買うもの」一覧</h1>
@@ -43,12 +43,14 @@
         <tr>
             <td>{{ $task->created_at }}
             <td>{{ $task->name }}
+
+            <td><form action="{{ route('complete', ['task_id' => $task->id]) }}" method="post"> @csrf <button onclick='return confirm("この「買うもの」を「完了」にします。よろしいですか？");' >完了 </button></form>
+            <td>　</td>
             <td><form action="{{ route('delete', ['task_id' => $task->id]) }}" method="post">
             @csrf
             @method("DELETE")
-            <button onclick='return confirm("このタスクを削除します(削除したら戻せません)。よろしいですか？");'>タスクを削除する</button></form>
+            <button onclick='return confirm("この「買うもの」を削除します。よろしいですか？");'>削除</button></form>
         
-            <td><form action="{{ route('complete', ['task_id' => $task->id]) }}" method="post"> @csrf <button onclick='return confirm("このタスクを「完了」にします。よろしいですか？");' >完了</button></form>
 @endforeach
         </table>
         

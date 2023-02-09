@@ -20,8 +20,12 @@ use App\Http\Controllers\CompletedShoppingListController;
 //Route::get('/', function () {
   //  return view('welcome');
     
+// 会員登録（★これを追加）
+Route::get('/user/register', [UserController::class, 'index']);
+Route::post('/user/register', [UserController::class, 'register']);
+
     // タスク管理システム
-Route::get('/', [AuthController::class, 'index']);
+Route::get('/', [AuthController::class, 'index'])->name('front.index');
 Route::get('/index', [AuthController::class, 'index']);
 Route::get('/login', [AuthController::class, 'login']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -38,3 +42,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/completed_shopping_list/list', [CompletedShoppingListController::class, 'list']);
 });    
+
+// 管理画面
+Route::prefix('/admin')->group(function () {
+    Route::get('', [AdminAuthController::class, 'index'])->name('admin.index');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
+    Route::middleware(['auth:admin'])->group(function () {
+        Route::get('/top', [AdminHomeController::class, 'top'])->name('admin.top');
+        Route::get('/user/list', [AdminUserController::class, 'list'])->name('admin.user.list');
+    });
+    Route::get('/logout', [AdminAuthController::class, 'logout']);
+});
+

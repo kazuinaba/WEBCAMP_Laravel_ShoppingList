@@ -15,6 +15,7 @@
         <tr>
             <td>{{ $task->name }}
             <td>{{ $task->created_at }}
+            
 @endforeach
         </table>
         

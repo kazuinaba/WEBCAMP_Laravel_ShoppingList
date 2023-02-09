@@ -20,7 +20,7 @@ class ShoppingListController extends Controller
     public function list()
     {
         // 1Page辺りの表示アイテム数を設定
-        $per_page = 20;
+        $per_page = 2;
         
         // 一覧の取得
         $list = $this->getListBuilder()
@@ -162,6 +162,6 @@ class ShoppingListController extends Controller
     protected function getListBuilder()
     {
         return ShoppingListModel::where('user_id', Auth::id())
-                     ->orderBy('created_at');
+                     ->orderBy('name');
     }
 }

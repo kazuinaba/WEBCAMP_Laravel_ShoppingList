@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginPostRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminLoginPostRequest;
 
 class AuthController extends Controller
 {
@@ -16,34 +16,36 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('index');
+        return view('admin.index');
     }
-    
-    
-        /**
+
+
+    /**
      * ログイン処理
      * 
      */
-    public function login(LoginPostRequest $request)
+    public function login(AdminLoginPostRequest $request)
     {
         // validate済
 
         // データの取得
         $datum = $request->validated();
+        //var_dump($datum); exit;
 
-        //
-        //var_dump($datum);
-        
-            if (Auth::attempt($datum) === false) {
+        // 認証
+        if (Auth::guard('admin')->attempt($datum) === false) {
             return back()
                    ->withInput() // 入力値の保持
-                   ->withErrors(['auth' => 'emailかパスワードに誤りがあります。',]) // エラーメッセージの出力
+                   ->withErrors(['auth' => 'ログインIDかパスワードに誤りがあります。',]) // エラーメッセージの出力
                    ;
         }
-       $request->session()->regenerate();
-        return redirect()->intended('/shopping_list/list');
+
+        //
+        $request->session()->regenerate();
+        return redirect()->intended('/admin/top');
     }
-        /**
+    
+       /**
      * ログアウト処理
      * 
      */
@@ -52,7 +54,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->regenerateToken();  // CSRFトークンの再生成
         $request->session()->regenerate();  // セッションIDの再生成
-        return redirect(route('front.index'));
-    }
+        return redirect(route('admin.index'));
+    } 
 }
-    
