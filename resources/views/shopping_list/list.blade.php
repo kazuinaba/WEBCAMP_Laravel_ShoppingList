@@ -41,7 +41,7 @@
             <th>「買うもの」名
 @foreach ($list as $task)
         <tr>
-            <td>{{ $task->created_at }}
+            <td>{{ $task->created_at->format('Y/m/d') }}
             <td>{{ $task->name }}
 
             <td><form action="{{ route('complete', ['task_id' => $task->id]) }}" method="post"> @csrf <button onclick='return confirm("この「買うもの」を「完了」にします。よろしいですか？");' >完了 </button></form>

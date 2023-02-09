@@ -42,7 +42,7 @@ class UserController extends Controller
         }
 
         // 会員登録成功
-        $request->session()->flash('front.task_register_success', true);
+        $request->session()->flash('front.user_register_success', true);
 
         //
         //return redirect('/user/register');

@@ -30,7 +30,6 @@ class ShoppingListController extends Controller
   //          ->toSql();
 //echo "<pre>\n"; var_dump($sql, $list); exit;
 //var_dump($list);
-
         //
         return view('shopping_list.list', ['list' => $list]);
         //return view('shopping_list.list');
@@ -61,8 +60,7 @@ class ShoppingListController extends Controller
             exit;
         }
         //var_dump($r);
-        // タスク登録成功
-        //$request->session()->flash('front.task_register_success', true);
+        $request->session()->flash('front.task_register_success', true);
         //$list = $this;
         //
         return redirect('/shopping_list/list');
